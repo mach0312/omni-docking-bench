@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- Basic double steering drive mobile base -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="doublesteeringdrive_robot">
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="use_mock_hardware" default="false" />
+
+  <xacro:include filename="$(find dsd_bot_description)/dsdbot/urdf/dsdbot_description.urdf.xacro" />
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find dsd_bot_description)/dsdbot/urdf/dsdbot.materials.xacro" />
+
+  <!-- Import dsdbot ros2_control description -->
+  <xacro:include filename="$(find dsd_control_demo)/ros2_control/dsdbot.ros2_control.xacro" />
+
+  <xacro:dsdbot prefix="$(arg prefix)" />
+
+  <xacro:dsdbot_ros2_control
+    name="DsdBot" prefix="$(arg prefix)" use_mock_hardware="$(arg use_mock_hardware)"/>
+
+</robot>

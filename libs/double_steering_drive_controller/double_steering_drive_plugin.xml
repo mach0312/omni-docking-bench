@@ -1,0 +1,11 @@
+<library path="double_steering_drive_controller">
+  <class name="double_steering_drive_controller/DoubleSteeringDriveController"
+         type="double_steering_drive_controller::DoubleSteeringDriveController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      Double-steering-drive ros2_control controller. Transforms linear/angular
+      velocity commands into per-wheel drive and steering commands for a
+      dual-steer, four-wheel omni-like platform.
+    </description>
+  </class>
+</library>

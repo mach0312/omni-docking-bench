@@ -1,0 +1,51 @@
+# ==========================
+# ROS 2 / colcon build outputs
+# ==========================
+build/
+install/
+log/
+
+# ==========================
+# Python
+# ==========================
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ==========================
+# Editor / OS
+# ==========================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Binary plugin (shipped via GitHub Releases, not git)
+# ==========================
+libs/double_steering_drive_controller/lib/*.so
+!libs/double_steering_drive_controller/lib/.gitkeep
+libs/double_steering_drive_controller/include/double_steering_drive_controller/
+!libs/double_steering_drive_controller/include/.gitkeep
+
+# ==========================
+# Experiment results
+# Only sample runs (*_sample) are tracked; the rest is ignored.
+# ==========================
+results/*
+!results/README.md
+!results/*_sample/
+!results/*_sample/**
+
+src/icros_test_setup/results/*
+!src/icros_test_setup/results/README.md
+!src/icros_test_setup/results/*_sample/
+!src/icros_test_setup/results/*_sample/**
+
+# Docker build cache
+.docker/

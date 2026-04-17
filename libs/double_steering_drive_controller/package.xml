@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>double_steering_drive_controller</name>
+  <version>0.1.0</version>
+  <description>
+    Pre-built binary plugin distribution of the double-steering-drive ros2_control controller.
+    The source of this controller is not included in the repository on purpose;
+    a pre-compiled libdouble_steering_drive_controller.so is installed from libs/ so that
+    reviewers can reproduce the benchmark without access to the full proprietary source tree.
+    See README.md for details and the SHA-256 of the binary.
+  </description>
+  <maintainer email="sjr9017@khu.ac.kr">Jaerak Son</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- runtime dependencies the .so links against -->
+  <exec_depend>controller_interface</exec_depend>
+  <exec_depend>hardware_interface</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>pluginlib</exec_depend>
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>rclcpp_lifecycle</exec_depend>
+  <exec_depend>rcpputils</exec_depend>
+  <exec_depend>realtime_tools</exec_depend>
+  <exec_depend>tf2</exec_depend>
+  <exec_depend>tf2_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>backward_ros</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <pluginlib plugin="${prefix}/double_steering_drive_plugin.xml"/>
+  </export>
+</package>

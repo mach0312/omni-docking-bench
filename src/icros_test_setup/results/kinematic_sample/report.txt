@@ -1,0 +1,34 @@
+=== Experiment Report: kinematic_20260415_194249 ===
+
+Trials: 143, Success: 143, Rate: 100.0%
+
+--- Metrics (success trials only) ---
+  settling_time_s: avg=5.314s, min=0.000s, max=12.778s
+  steady_state_error_mm: avg=2.784mm, min=0.848mm, max=3.228mm
+  max_overshoot_mm: avg=2.925mm, min=0.954mm, max=3.735mm
+  cross_track_error_rms_mm: avg=3.910mm, min=0.189mm, max=10.145mm
+  heading_error_deg: avg=0.164deg, min=0.000deg, max=2.910deg
+  control_effort: avg=0.194, min=0.000, max=0.372
+  cdi: avg=8.271, min=0.000, max=22.125
+  steering_change_rad: avg=3.943rad, min=0.000rad, max=9.594rad
+
+--- Per Direction ---
+  dir=  0.0 deg: n=17, settling=2.351s, sse=2.477mm
+  dir=135.0 deg: n=18, settling=5.874s, sse=2.873mm
+  dir=180.0 deg: n=18, settling=2.158s, sse=2.652mm
+  dir=225.0 deg: n=18, settling=5.825s, sse=2.869mm
+  dir=270.0 deg: n=18, settling=6.544s, sse=2.860mm
+  dir=315.0 deg: n=18, settling=5.555s, sse=2.826mm
+  dir= 45.0 deg: n=18, settling=5.928s, sse=2.853mm
+  dir= 90.0 deg: n=18, settling=8.115s, sse=2.843mm
+
+--- Per Heading Offset ---
+  heading=  -2.0 deg: n=16, settling=4.193s, sse=2.756mm, steering=3.160rad
+  heading=  -3.0 deg: n=16, settling=5.588s, sse=2.763mm, steering=4.221rad
+  heading=  -4.0 deg: n=16, settling=6.821s, sse=2.827mm, steering=5.283rad
+  heading=  -5.0 deg: n=16, settling=5.938s, sse=2.760mm, steering=4.474rad
+  heading=   0.0 deg: n=15, settling=2.066s, sse=2.810mm, steering=0.696rad
+  heading=   2.0 deg: n=16, settling=4.204s, sse=2.785mm, steering=3.151rad
+  heading=   3.0 deg: n=16, settling=5.191s, sse=2.708mm, steering=3.814rad
+  heading=   4.0 deg: n=16, settling=6.701s, sse=2.793mm, steering=5.174rad
+  heading=   5.0 deg: n=16, settling=6.924s, sse=2.852mm, steering=5.308rad

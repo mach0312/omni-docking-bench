@@ -1,0 +1,56 @@
+pgv_controller:
+  ros__parameters:
+    # ========================= Topics =========================
+    pose_topic: "/pgv/raw_pose"
+    cmd_topic: "/tracing_vel"
+    goal_topic: "/pgv_controller/goal"
+    forward_topic: "/pgv_controller/go_forward"
+    backward_topic: "/pgv_controller/go_backward"
+    state_topic: "/pgv_controller/state"
+    cancel_service: "/pgv_controller/cancel"
+
+    # ========================= Mode =========================
+    holonomic: true
+
+    # ========================= Safety =========================
+    pose_timeout_sec: 0.1
+    post_timeout_grace_sec: 1.0
+    control_rate: 50.0
+
+    # ========================= Speed limits =========================
+    max_lin_vel: 0.1
+    max_ang_vel: 0.05
+    accel_lin: 0.8
+    accel_ang: 1.5
+
+    # ========================= Gains =========================
+    kp_x: 1.0
+    kp_y: 1.0
+    kp_yaw: 1.0
+
+    # ========================= Sensor offsets =========================
+    sensor_x_offset: 0.0
+    sensor_y_offset: 0.51
+    sensor_yaw_offset_deg: 0.0
+
+    # ========================= Yaw stabilization =========================
+    yaw_wrap_band_deg: 12.0
+    allow_reverse_heading: false
+
+    # ========================= Manual hold-to-run =========================
+    teleop_speed: 0.15
+    manual_timeout: 0.1
+
+    # ========================= COARSE -> FINE transition =========================
+    coarse_xy_threshold: 0.01 # [m] xy 거리 이내이면 FINE 진입
+    coarse_yaw_threshold_deg: 5.0 # [deg] yaw 오차 이내이면 FINE 진입
+
+    # ========================= FINE tolerances =========================
+    fine_xy_tolerance: 0.003 # [m] 최종 xy 허용오차
+    fine_yaw_tolerance_deg: 2.0 # [deg] 최종 yaw 허용오차
+
+    # ========================= FINE micro control =========================
+    fine_max_delta_xy: 0.03 # [m] micro 1회 최대 xy 보정량
+    fine_max_delta_yaw_deg: 17.0 # [deg] micro 1회 최대 yaw 보정량
+    fine_cycle_duration: 1.0 # [s] micro 1사이클 시간
+    # 센서 회전 보상은 sensor_x_offset, sensor_y_offset에서 자동 계산

@@ -1,0 +1,26 @@
+# ICROS Experiment Scenarios
+# 3 controllers x 8 directions x 3 repeats = 72 trials
+# Start distance: 3cm from goal
+# Goal tolerance: 3mm
+
+experiment:
+  start_distance: 0.03  # [m]
+  directions: 8          # 8 directions at 45deg intervals
+  repeats: 3
+  controllers:
+    - mppi
+    - dwb
+    - kinematic
+
+  # Goal position (cargo target in map frame)
+  goal:
+    x: 0.0
+    y: 0.0
+    yaw_deg: 0.0
+
+  # Termination criteria
+  success_threshold: 0.003      # [m] 3mm
+  success_samples: 5            # consecutive samples within threshold
+  settle_threshold: 0.005       # [m] 5mm
+  settle_timeout: 5.0           # [s] accumulated time in settle zone
+  total_timeout: 30.0           # [s] absolute time limit

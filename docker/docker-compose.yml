@@ -1,0 +1,64 @@
+#
+# omni-docking-bench — multi-container topology.
+#
+# Pattern:
+#   `robot`  : long-running container that brings up ros2_control
+#              (double_steering_drive_controller via the pre-built .so),
+#              the dummy PGV node, and the pgv_controller.
+#   `runner` : one-shot container that, for a given controller, drives
+#              the experiment_runner_node and writes CSV + plots into
+#              the host-mounted results/ directory.
+#
+# Both containers share the same ROS 2 DDS domain over a user-defined
+# bridge network so they can find each other without host networking.
+#
+# Typical usage:
+#
+#   docker compose build
+#   docker compose up -d robot
+#   docker compose run --rm runner \
+#     ros2 launch icros_test_setup experiment_kinematic.launch.py \
+#       heading_offsets_deg:='[0.0]' repeats:=3
+#   docker compose down
+#
+
+services:
+  robot:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.jazzy
+    image: omni-docking-bench:jazzy
+    container_name: odb_robot
+    environment:
+      - ROS_DOMAIN_ID=42
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+    networks:
+      - odb_net
+    volumes:
+      - ../results:/workspace/omni_docking_bench_ws/src/icros_test_setup/results
+    command:
+      - bash
+      - -lc
+      - >
+        ros2 launch dsd_control_demo dsdbot.launch.py
+
+  runner:
+    image: omni-docking-bench:jazzy
+    container_name: odb_runner
+    depends_on:
+      - robot
+    environment:
+      - ROS_DOMAIN_ID=42
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+    networks:
+      - odb_net
+    volumes:
+      - ../results:/workspace/omni_docking_bench_ws/src/icros_test_setup/results
+    # Default command is interactive; override on the CLI
+    # (docker compose run --rm runner <your-command>).
+    command:
+      - bash
+
+networks:
+  odb_net:
+    driver: bridge

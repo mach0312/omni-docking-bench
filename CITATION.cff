@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "omni-docking-bench: A Reproducibility Benchmark for Precision Docking Controllers on a Double-Steering-Drive Omni AMR"
+abstract: >-
+  Reproducibility package for the ICROS 2026 paper on precision short-range
+  docking of a double-steering-drive omni-directional AMR. Compares a kinematic
+  convergence controller against Nav2 MPPI and DWB, using PGV100-F200A-R4
+  optical marker feedback for a 3 mm settling criterion at a 3 cm start distance.
+authors:
+  - family-names: "Son"
+    given-names: "Jaerak"
+    email: "sjr9017@khu.ac.kr"
+version: "0.1.0"
+date-released: "2026-04-17"
+license: Apache-2.0
+repository-code: "https://github.com/<owner>/omni-docking-bench"
+keywords:
+  - "ROS 2"
+  - "ros2_control"
+  - "Nav2"
+  - "MPPI"
+  - "DWB"
+  - "precision docking"
+  - "AMR"
+  - "double steering drive"
+  - "PGV sensor"
+  - "reproducibility"
+preferred-citation:
+  type: conference-paper
+  title: "Kinematic-based Precision Docking Controller for a Double-Steering-Drive Omni AMR"
+  authors:
+    - family-names: "Son"
+      given-names: "Jaerak"
+  conference:
+    name: "ICROS (Institute of Control, Robotics and Systems) Annual Conference"
+  year: 2026

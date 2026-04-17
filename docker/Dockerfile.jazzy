@@ -1,0 +1,62 @@
+# ==========================================================================
+# omni-docking-bench — single-container image (ROS 2 Jazzy / Ubuntu 24.04).
+#
+# This image builds the entire workspace including the pre-built
+# `double_steering_drive_controller` binary plugin that must be present at
+# `libs/double_steering_drive_controller/lib/libdouble_steering_drive_controller.so`
+# on the host BEFORE running `docker build`.
+# ==========================================================================
+FROM ros:jazzy-ros-base
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# --- System deps ---------------------------------------------------------
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      python3-pip \
+      python3-colcon-common-extensions \
+      python3-rosdep \
+      python3-matplotlib \
+      python3-numpy \
+      ros-jazzy-ros2-control \
+      ros-jazzy-ros2-controllers \
+      ros-jazzy-nav2-bringup \
+      ros-jazzy-nav2-controller \
+      ros-jazzy-nav2-common \
+      ros-jazzy-nav2-lifecycle-manager \
+      ros-jazzy-nav2-util \
+      ros-jazzy-nav2-msgs \
+      ros-jazzy-tf2-ros \
+      ros-jazzy-tf2-geometry-msgs \
+      ros-jazzy-backward-ros \
+      git curl ca-certificates \
+      && rm -rf /var/lib/apt/lists/*
+
+# rosdep is already initialised in the base image
+# RUN rosdep update --rosdistro jazzy
+
+# --- Workspace -----------------------------------------------------------
+ENV WS=/workspace/omni_docking_bench_ws
+WORKDIR $WS
+COPY src ./src
+COPY libs ./libs
+
+# Sanity check: the binary plugin must be in place (CMakeLists.txt enforces this).
+# If you want the build to proceed without it, drop the whole libs/… package.
+RUN test -f libs/double_steering_drive_controller/lib/libdouble_steering_drive_controller.so \
+    || (echo "!! Missing libs/double_steering_drive_controller/lib/libdouble_steering_drive_controller.so" \
+        "-- see libs/double_steering_drive_controller/README.md" >&2 && exit 1)
+
+# rosdep needs package.xml of libs/ visible under src/ OR a symlink.
+RUN ln -s "$WS/libs/double_steering_drive_controller" \
+          "$WS/src/double_steering_drive_controller"
+
+RUN . /opt/ros/jazzy/setup.sh \
+    && rosdep install --from-paths src -yir --skip-keys "double_steering_drive_controller" \
+    && colcon build --symlink-install \
+        --cmake-args -DCMAKE_BUILD_TYPE=Release
+
+# --- Entrypoint ----------------------------------------------------------
+COPY docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["bash"]
