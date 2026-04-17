@@ -59,13 +59,13 @@ sudo apt update && sudo apt install -y \
   python3-colcon-common-extensions python3-pip
 
 # 1. Clone
-git clone https://github.com/<owner>/omni-docking-bench.git ~/omni_docking_bench_ws
+git clone https://github.com/mach0312/omni-docking-bench.git ~/omni_docking_bench_ws
 cd ~/omni_docking_bench_ws
 
 # 2. Place the pre-built binary plugin
 #    See libs/double_steering_drive_controller/README.md for the GitHub Release link.
 curl -L -o libs/double_steering_drive_controller/lib/libdouble_steering_drive_controller.so \
-  https://github.com/<owner>/omni-docking-bench/releases/download/v0.1.0/libdouble_steering_drive_controller.so
+  https://github.com/mach0312/omni-docking-bench/releases/download/v0.1.0/libdouble_steering_drive_controller.so
 
 # 3. Build
 source /opt/ros/jazzy/setup.bash
@@ -80,7 +80,7 @@ ros2 launch icros_test_setup experiment_kinematic.launch.py \
 ### 2) Single Docker container
 
 ```bash
-git clone https://github.com/<owner>/omni-docking-bench.git
+git clone https://github.com/mach0312/omni-docking-bench.git
 cd omni-docking-bench
 # Place the binary plugin under libs/double_steering_drive_controller/lib/ (see §1 above)
 docker build -f docker/Dockerfile.jazzy -t omni-docking-bench:jazzy .

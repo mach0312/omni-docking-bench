@@ -48,11 +48,11 @@ GitHub Release 페이지에서 최신 자산을 받는다.
 ```bash
 cd libs/double_steering_drive_controller
 curl -L -o lib/libdouble_steering_drive_controller.so \
-  https://github.com/<owner>/omni-docking-bench/releases/download/vX.Y.Z/libdouble_steering_drive_controller.so
+  https://github.com/mach0312/omni-docking-bench/releases/download/vX.Y.Z/libdouble_steering_drive_controller.so
 
 # (필요 시) 공개 헤더
 curl -L -o include.tar.gz \
-  https://github.com/<owner>/omni-docking-bench/releases/download/vX.Y.Z/double_steering_drive_controller_include.tar.gz
+  https://github.com/mach0312/omni-docking-bench/releases/download/vX.Y.Z/double_steering_drive_controller_include.tar.gz
 tar -xzf include.tar.gz && rm include.tar.gz
 ```
 
