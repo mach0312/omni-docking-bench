@@ -36,7 +36,6 @@ omni-docking-bench/
 │   ├── EXPERIMENT_ANALYSIS.md       # How to interpret the 7 metrics & plots
 │   └── RELEASE_PROCESS.md           # How the binary plugin is (re)built
 ├── results/                         # Sample runs are tracked, the rest is ignored
-├── .github/workflows/build.yml      # CI: colcon build + smoke test
 ├── LICENSE                          # Apache-2.0
 ├── CITATION.cff
 └── README.md                        # ← you are here

@@ -127,10 +127,3 @@ After publishing, bump the URL in:
 - `libs/double_steering_drive_controller/README.md`
 
 and commit those as part of the release PR.
-
-## 7. CI smoke test
-
-The `.github/workflows/build.yml` pipeline exercises the build **without**
-the binary: it skips the `double_steering_drive_controller` package so that
-contributors who don't have release access can still see CI pass.
-Integration of the binary is verified manually after every release bump.
