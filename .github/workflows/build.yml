@@ -41,17 +41,28 @@ jobs:
             ros-jazzy-backward-ros \
             git
 
-      - name: Build (excluding the binary plugin)
+      - name: Create stub .so for CI build verification
+        shell: bash
+        run: |
+          # The real libdouble_steering_drive_controller.so is distributed via
+          # GitHub Releases (not git-tracked) — see libs/.../README.md. For CI
+          # we only need to verify that everything *compiles*; the stub below
+          # lets the wrapper package (which expects the file to exist) install
+          # cleanly so that downstream packages (dsd_control_demo) can in turn
+          # find its environment (package.sh) when colcon sources upstream deps.
+          mkdir -p libs/double_steering_drive_controller/lib
+          : > libs/double_steering_drive_controller/lib/libdouble_steering_drive_controller.so
+
+      - name: Build all packages
         shell: bash
         run: |
           set -e
           source /opt/ros/jazzy/setup.bash
-          # We do NOT ship libdouble_steering_drive_controller.so in git; it
-          # arrives via GitHub Releases. CI therefore skips that package and
-          # only verifies the open-source parts build cleanly.
-          # GUI / demo-only / CLI-only rosdep keys are skipped as well —
-          # they are runtime conveniences and not required for `colcon build`
-          # to produce working library/launch/config install trees.
+          # GUI / demo-only / CLI-only rosdep keys are skipped — they are
+          # runtime conveniences and not required for `colcon build` to
+          # produce working library/launch/config install trees.
+          # `ament_python` is an ament-internal buildtool with no rosdep
+          # mapping; it is already present in the ROS base image.
           rosdep update || true
           rosdep install --from-paths src -yir \
             --skip-keys "double_steering_drive_controller \
@@ -60,9 +71,9 @@ jobs:
                          ros2controlcli \
                          ros2launch \
                          joint_state_publisher_gui \
-                         rviz2"
+                         rviz2 \
+                         ament_python"
           colcon build \
-            --packages-skip double_steering_drive_controller \
             --cmake-args -DCMAKE_BUILD_TYPE=Release
 
       - name: Check package manifests parse
