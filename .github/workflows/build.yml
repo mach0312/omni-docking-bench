@@ -26,6 +26,10 @@ jobs:
             python3-numpy \
             ros-jazzy-ros2-control \
             ros-jazzy-ros2-controllers \
+            ros-jazzy-controller-manager \
+            ros-jazzy-joint-state-broadcaster \
+            ros-jazzy-robot-state-publisher \
+            ros-jazzy-xacro \
             ros-jazzy-nav2-bringup \
             ros-jazzy-nav2-controller \
             ros-jazzy-nav2-common \
@@ -45,8 +49,18 @@ jobs:
           # We do NOT ship libdouble_steering_drive_controller.so in git; it
           # arrives via GitHub Releases. CI therefore skips that package and
           # only verifies the open-source parts build cleanly.
+          # GUI / demo-only / CLI-only rosdep keys are skipped as well —
+          # they are runtime conveniences and not required for `colcon build`
+          # to produce working library/launch/config install trees.
+          rosdep update || true
           rosdep install --from-paths src -yir \
-            --skip-keys "double_steering_drive_controller"
+            --skip-keys "double_steering_drive_controller \
+                         ros2_control_demo_description \
+                         ros2_controllers_test_nodes \
+                         ros2controlcli \
+                         ros2launch \
+                         joint_state_publisher_gui \
+                         rviz2"
           colcon build \
             --packages-skip double_steering_drive_controller \
             --cmake-args -DCMAKE_BUILD_TYPE=Release
